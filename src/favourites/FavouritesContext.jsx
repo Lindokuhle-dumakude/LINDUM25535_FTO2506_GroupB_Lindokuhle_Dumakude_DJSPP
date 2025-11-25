@@ -28,6 +28,36 @@ export function FavouritesProvider({ children }) {
     localStorage.setItem("favourites", JSON.stringify(favourites));
   }, [favourites]);
 
+  /**
+   * Add an episode to favourites.
+   *
+   * @param {Object} episode - The episode object to add
+   * @param {string} showTitle - The title of the show
+   * @param {number} seasonNumber - The season number
+   */
+  function addFavourite(episode, showTitle, seasonNumber) {
+    const fav = {
+      id: episode.id,
+      title: episode.title,
+      episode: episode.episode,
+      showTitle,
+      season: seasonNumber,
+      addedAt: new Date().toISOString(), // record when it was added
+      description: episode.description,
+    };
+
+    setFavourites((prev) => [...prev, fav]);
+  }
+
+  /**
+   * Remove an episode from favourites by ID.
+   *
+   * @param {number|string} id - ID of the episode to remove
+   */
+  function removeFavourite(id) {
+    setFavourites((prev) => prev.filter((ep) => ep.id !== id));
+  }
+
   // Provide favourites state and toggle function to children
   return (
     <FavouritesContext.Provider value={{ favourites, toggleFavourite }}>
