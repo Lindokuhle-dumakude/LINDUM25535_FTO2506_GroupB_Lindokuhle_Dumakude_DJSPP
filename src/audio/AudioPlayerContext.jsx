@@ -28,6 +28,21 @@ export function AudioPlayerProvider({ children }) {
   /** Total duration of the current audio (in seconds). */
   const [duration, setDuration] = useState(0);
 
+  /**
+   * Plays a given episode.
+   *
+   * @param {Object} episode - The episode object to play.
+   */
+  const playEpisode = (episode) => {
+    setCurrentEpisode(episode);
+
+    // Wait for the audio element to load the new source, then play
+    setTimeout(() => {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }, 0);
+  };
+
   return (
     <AudioPlayerContext.Provider value={value}>
       {children}
