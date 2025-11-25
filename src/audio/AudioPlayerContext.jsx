@@ -61,6 +61,20 @@ export function AudioPlayerProvider({ children }) {
     setProgress(seconds);
   };
 
+  // All values and functions we want to share with other components
+  const value = {
+    audioRef,
+    currentEpisode,
+    isPlaying,
+    progress,
+    duration,
+    playEpisode,
+    pause,
+    seekTo,
+    setProgress,
+    setDuration,
+  };
+
   return (
     <AudioPlayerContext.Provider value={value}>
       {children}
