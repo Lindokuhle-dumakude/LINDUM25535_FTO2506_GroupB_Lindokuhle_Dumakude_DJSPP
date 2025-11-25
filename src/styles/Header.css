@@ -1,0 +1,81 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  width: 100%;
+  background-color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 2rem;
+  margin: 0; /* remove outside spacing */
+  border: 0; /* just in case */
+  box-sizing: border-box;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+}
+.podcastLogoAndTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.podcastAppLogo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.podcastTitle {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.profileIcon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0;
+  }
+
+  .podcastLogoAndTitle {
+    gap: 0.6rem;
+  }
+
+  .podcastAppLogo,
+  .profileIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .podcastTitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0;
+  }
+
+  .podcastTitle {
+    font-size: 1.1rem;
+  }
+}
+
+header img {
+  max-width: 100%;
+  height: auto;
+}

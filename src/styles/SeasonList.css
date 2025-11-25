@@ -1,0 +1,37 @@
+.season-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.season-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.season-dropdown {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.season-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Responsive for larger screens: show season info side by side with dropdown */
+@media (min-width: 768px) {
+  .season-list-header {
+    flex-direction: row;
+  }
+}
+
+.season-meta {
+  color: #555;
+  margin-left: 0.75rem;
+}

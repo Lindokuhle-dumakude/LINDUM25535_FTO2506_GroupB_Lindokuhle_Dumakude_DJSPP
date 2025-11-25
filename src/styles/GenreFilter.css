@@ -1,0 +1,28 @@
+.genre-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 160px;
+}
+
+.genre-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.genre-select {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 0.93rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.genre-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background: #fff;
+}

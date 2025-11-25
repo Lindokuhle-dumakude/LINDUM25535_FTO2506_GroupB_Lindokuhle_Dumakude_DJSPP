@@ -1,0 +1,13 @@
+/* src/styles/SeasonDropdown.css */
+.season-dropdown {
+  margin-left: auto;
+  display: inline-block;
+}
+
+.season-dropdown select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 0.95rem;
+}
