@@ -51,6 +51,16 @@ export function AudioPlayerProvider({ children }) {
     setIsPlaying(false);
   };
 
+  /**
+   * Seeks the audio to a specific time.
+   *
+   * @param {number} seconds - The time in seconds to jump to in the audio.
+   */
+  const seekTo = (seconds) => {
+    audioRef.current.currentTime = seconds;
+    setProgress(seconds);
+  };
+
   return (
     <AudioPlayerContext.Provider value={value}>
       {children}
