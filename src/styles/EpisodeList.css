@@ -38,3 +38,20 @@
   color: #555;
   line-height: 1.4;
 }
+
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 5px;
+}
+
+.episode-card {
+  position: relative;
+}
+
+.fav-btn:hover {
+  transform: scale(1.1);
+}
