@@ -58,6 +58,24 @@ export function FavouritesProvider({ children }) {
     setFavourites((prev) => prev.filter((ep) => ep.id !== id));
   }
 
+  /**
+   * Toggle an episode in favourites.
+   * If already favourited, remove it; otherwise, add it.
+   *
+   * @param {Object} episode - Episode to toggle
+   * @param {string} showTitle - Show title
+   * @param {number} seasonNumber - Season number
+   */
+  function toggleFavourite(episode, showTitle, seasonNumber) {
+    const exists = favourites.some((ep) => ep.id === episode.id);
+
+    if (exists) {
+      removeFavourite(episode.id);
+    } else {
+      addFavourite(episode, showTitle, seasonNumber);
+    }
+  }
+
   // Provide favourites state and toggle function to children
   return (
     <FavouritesContext.Provider value={{ favourites, toggleFavourite }}>
