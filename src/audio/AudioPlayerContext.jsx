@@ -81,3 +81,10 @@ export function AudioPlayerProvider({ children }) {
     </AudioPlayerContext.Provider>
   );
 }
+
+/**
+ * Custom hook to access the audio player context.
+ *
+ * @returns {Object} The audio player state and control functions.
+ */
+export const useAudioPlayer = () => useContext(AudioPlayerContext);
