@@ -44,4 +44,7 @@ export default function AudioPlayer() {
       }
     };
   }, [audioRef, setProgress, setDuration]);
+
+  // If no episode is selected, hide the player
+  if (!currentEpisode) return null;
 }
