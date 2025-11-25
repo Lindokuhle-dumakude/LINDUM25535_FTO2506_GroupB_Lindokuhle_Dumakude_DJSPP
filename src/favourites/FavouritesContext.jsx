@@ -83,3 +83,12 @@ export function FavouritesProvider({ children }) {
     </FavouritesContext.Provider>
   );
 }
+
+/**
+ * Custom hook to access favourites context.
+ *
+ * @returns {Object} favourites array and toggleFavourite function
+ */
+export function useFavourites() {
+  return useContext(FavouritesContext);
+}
