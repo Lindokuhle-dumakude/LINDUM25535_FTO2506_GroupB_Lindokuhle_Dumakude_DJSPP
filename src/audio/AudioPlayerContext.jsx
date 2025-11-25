@@ -43,6 +43,14 @@ export function AudioPlayerProvider({ children }) {
     }, 0);
   };
 
+  /**
+   * Pauses the current audio playback.
+   */
+  const pause = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
   return (
     <AudioPlayerContext.Provider value={value}>
       {children}
