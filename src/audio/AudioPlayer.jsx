@@ -47,4 +47,34 @@ export default function AudioPlayer() {
 
   // If no episode is selected, hide the player
   if (!currentEpisode) return null;
+
+  return (
+    <div className="audio-player">
+      {/* The actual audio element */}
+      <audio ref={audioRef} src={currentEpisode.audioUrl} />
+
+      {/* Show title of current episode */}
+      <div className="player-info">
+        <strong>{currentEpisode.title}</strong>
+      </div>
+
+      {/* Play/Pause controls */}
+      <div className="controls">
+        {isPlaying ? (
+          <button onClick={pause}>Pause</button>
+        ) : (
+          <button onClick={() => audioRef.current.play()}>Play</button>
+        )}
+      </div>
+
+      {/* Seek bar to jump to different parts of the audio */}
+      <input
+        type="range"
+        min="0"
+        max={duration || 0}
+        value={progress}
+        onChange={(e) => (audioRef.current.currentTime = e.target.value)}
+      />
+    </div>
+  );
 }
