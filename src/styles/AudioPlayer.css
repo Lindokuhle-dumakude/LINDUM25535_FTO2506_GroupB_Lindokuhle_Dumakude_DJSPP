@@ -1,0 +1,35 @@
+.audio-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.player-info {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controls input[type="range"] {
+  flex-grow: 1;
+}
+
+.time {
+  font-size: 12px;
+  min-width: 60px;
+  text-align: right;
+}
