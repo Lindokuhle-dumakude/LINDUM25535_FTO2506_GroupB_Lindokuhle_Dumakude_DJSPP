@@ -9,7 +9,13 @@ import { useFavourites } from "../favourites/FavouritesContext";
  * @param {Array} props.episodes - List of episode objects to display.
  * @param {string} props.seasonImage - Image URL to show for each episode thumbnail.
  */
-export default function EpisodeList({ episodes, seasonImage }) {
+export default function EpisodeList({
+  episodes,
+  seasonImage,
+  showId,
+  showTitle,
+  seasonNumber,
+}) {
   // Access favourites state and toggle function from context
   const { favourites, toggleFavourite } = useFavourites();
 
@@ -42,7 +48,12 @@ export default function EpisodeList({ episodes, seasonImage }) {
             </div>
 
             {/* Favourite button: toggles heart icon */}
-            <button className="fav-btn" onClick={() => toggleFavourite(ep)}>
+            <button
+              className="fav-btn"
+              onClick={() =>
+                toggleFavourite(ep, showId, showTitle, seasonNumber)
+              }
+            >
               {isFavourited ? "❤️" : "🤍"}
             </button>
           </div>
