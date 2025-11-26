@@ -1,5 +1,6 @@
 // src/theme/ThemeContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
+import "../styles/Theme.css";
 
 /**
  * Context to manage the app's light/dark theme globally.
