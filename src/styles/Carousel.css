@@ -6,6 +6,11 @@
   cursor: pointer;
   padding: 1rem;
   text-align: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.carousel-item:hover {
+  transform: translateY(-5px);
 }
 
 .carousel-image {
