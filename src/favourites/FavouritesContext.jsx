@@ -40,6 +40,7 @@ export function FavouritesProvider({ children }) {
       id: episode.id,
       title: episode.title,
       episode: episode.episode,
+      showId,
       showTitle,
       season: seasonNumber,
       addedAt: new Date().toISOString(), // record when it was added
@@ -66,13 +67,13 @@ export function FavouritesProvider({ children }) {
    * @param {string} showTitle - Show title
    * @param {number} seasonNumber - Season number
    */
-  function toggleFavourite(episode, showTitle, seasonNumber) {
+  function toggleFavourite(episode, showId, showTitle, seasonNumber) {
     const exists = favourites.some((ep) => ep.id === episode.id);
 
     if (exists) {
       removeFavourite(episode.id);
     } else {
-      addFavourite(episode, showTitle, seasonNumber);
+      addFavourite(episode, showId, showTitle, seasonNumber);
     }
   }
 
