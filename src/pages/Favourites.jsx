@@ -31,4 +31,18 @@ export default function Favourites() {
         return list;
     }
   };
+
+  // Group favourites by show title
+  const groups = favourites.reduce((acc, ep) => {
+    if (!acc[ep.showTitle]) acc[ep.showTitle] = [];
+    acc[ep.showTitle].push(ep);
+    return acc;
+  }, {});
+
+  // Apply sorting within each group
+  Object.keys(groups).forEach((show) => {
+    groups[show] = applySorting(groups[show]);
+  });
+
+  const showTitles = Object.keys(groups).sort();
 }
