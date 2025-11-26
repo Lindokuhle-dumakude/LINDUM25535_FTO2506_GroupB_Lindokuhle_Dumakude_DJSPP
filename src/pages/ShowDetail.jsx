@@ -126,7 +126,7 @@ export default function ShowDetail() {
           </div>
         </div>
 
-        <SeasonList seasons={show.seasons} />
+        <SeasonList seasons={show.seasons} show={show} />
       </div>
     </div>
   );
