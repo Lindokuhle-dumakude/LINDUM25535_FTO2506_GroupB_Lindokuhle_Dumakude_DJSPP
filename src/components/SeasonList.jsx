@@ -5,7 +5,7 @@ import "../styles/SeasonList.css";
 /**
  * Displays a dropdown to select a season and shows its episodes.
  */
-export default function SeasonList({ seasons }) {
+export default function SeasonList({ seasons, show }) {
   const [selectedSeason, setSelectedSeason] = useState(0);
 
   const season = seasons[selectedSeason];
@@ -36,7 +36,13 @@ export default function SeasonList({ seasons }) {
         <p className="season-meta">Episodes: {season.episodes.length}</p>
       </div>
 
-      <EpisodeList episodes={season.episodes} seasonImage={season.image} />
+      <EpisodeList
+        episodes={season.episodes}
+        seasonImage={season.image}
+        showId={show.id}
+        showTitle={show.title}
+        seasonNumber={season.number}
+      />
     </div>
   );
 }
