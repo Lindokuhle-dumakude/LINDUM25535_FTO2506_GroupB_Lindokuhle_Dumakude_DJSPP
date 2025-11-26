@@ -1,80 +1,68 @@
 // src/audio/AudioPlayer.jsx
+import React from "react";
 import { useAudioPlayer } from "./AudioPlayerContext";
-import { useEffect } from "react";
+import "../styles/AudioPlayer.css";
 
 /**
- * AudioPlayer component displays the audio controls and progress bar.
- * It uses the shared audio player context for state and functions.
+ * AudioPlayer component displays global audio controls and progress.
+ * Fixed at the bottom of the screen and uses context for state management.
  */
 export default function AudioPlayer() {
-  // Get all needed state and control functions from context
   const {
     audioRef,
     currentEpisode,
     isPlaying,
     progress,
     duration,
-    setProgress,
-    setDuration,
+    playEpisode,
     pause,
+    seekTo,
+    handleTimeUpdate,
+    handleLoadedMetadata,
   } = useAudioPlayer();
 
-  /**
-   * Effect to update progress and duration as the audio plays or loads.
-   */
-  useEffect(() => {
-    const audio = audioRef.current;
-
-    // Update progress every time the audio time changes
-    const updateProgress = () => setProgress(audio.currentTime);
-
-    // Set duration once audio metadata is loaded
-    const loadedMetadata = () => setDuration(audio.duration);
-
-    if (audio) {
-      audio.addEventListener("timeupdate", updateProgress);
-      audio.addEventListener("loadedmetadata", loadedMetadata);
-    }
-
-    // Cleanup listeners when component unmounts or audio changes
-    return () => {
-      if (audio) {
-        audio.removeEventListener("timeupdate", updateProgress);
-        audio.removeEventListener("loadedmetadata", loadedMetadata);
-      }
-    };
-  }, [audioRef, setProgress, setDuration]);
-
-  // If no episode is selected, hide the player
+  // Hide player if no episode is selected
   if (!currentEpisode) return null;
+
+  // Handle user seeking through the audio
+  const handleSeekChange = (e) => {
+    seekTo(Number(e.target.value));
+  };
 
   return (
     <div className="audio-player">
-      {/* The actual audio element */}
-      <audio ref={audioRef} src={currentEpisode.audioUrl} />
-
-      {/* Show title of current episode */}
-      <div className="player-info">
-        <strong>{currentEpisode.title}</strong>
-      </div>
-
-      {/* Play/Pause controls */}
-      <div className="controls">
-        {isPlaying ? (
-          <button onClick={pause}>Pause</button>
-        ) : (
-          <button onClick={() => audioRef.current.play()}>Play</button>
-        )}
-      </div>
-
-      {/* Seek bar to jump to different parts of the audio */}
-      <input
-        type="range"
-        min="0"
-        max={duration || 0}
-        value={progress}
-        onChange={(e) => (audioRef.current.currentTime = e.target.value)}
+      {/* HTML5 audio element */}
+      <audio
+        ref={audioRef}
+        src={currentEpisode.audioUrl}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
       />
+
+      {/* Episode & show info */}
+      <div className="player-info">
+        <strong>{currentEpisode.title}</strong> - {currentEpisode.showTitle}
+      </div>
+
+      {/* Playback controls */}
+      <div className="controls">
+        <button onClick={isPlaying ? pause : () => playEpisode(currentEpisode)}>
+          {isPlaying ? "⏸️" : "▶️"}
+        </button>
+        <input
+          type="range"
+          min="0"
+          max={duration || 0}
+          value={progress}
+          onChange={handleSeekChange}
+        />
+        <span className="time">
+          {Math.floor(progress / 60)}:
+          {("0" + Math.floor(progress % 60)).slice(-2)} /{" "}
+          {Math.floor(duration / 60)}:
+          {("0" + Math.floor(duration % 60)).slice(-2)}
+        </span>
+      </div>
     </div>
   );
 }
