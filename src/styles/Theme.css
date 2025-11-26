@@ -1,24 +1,41 @@
-/* Light theme */
-body.light {
-  --bg-color: #ffffff;
-  --text-color: #111111;
-  --primary-color: #1e90ff;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+/* src/styles/Theme.css */
+
+/* Global default variables */
+:root {
+  --bg: #ffffff;
+  --text: #222222;
+  --text-light: #555;
+  --card-bg: #ffffff;
+  --card-bg-alt: #fafafa;
+  --border: #ddd;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Dark theme */
-body.dark {
-  --bg-color: #111111;
-  --text-color: #ffffff;
-  --primary-color: #1e90ff;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+/* Light mode */
+body[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #222;
+  --text-light: #555;
+  --card-bg: #ffffff;
+  --card-bg-alt: #fafafa;
+  --border: #ddd;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Example for buttons */
-button {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
+/* Dark mode */
+body[data-theme="dark"] {
+  --bg: #20212c;
+  --text: #ffffff;
+  --text-light: #cccccc;
+  --card-bg: #2b2c37;
+  --card-bg-alt: #292a33;
+  --border: #3a3b45;
+  --shadow: 0 0.25rem 0.375rem 0 rgba(54, 78, 126, 0.1015);
+}
+
+/* Apply globally */
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
 }

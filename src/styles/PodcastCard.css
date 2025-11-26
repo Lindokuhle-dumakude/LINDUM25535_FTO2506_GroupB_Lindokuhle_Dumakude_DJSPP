@@ -4,7 +4,7 @@
   box-shadow: var(--shadow);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .podcast-card:hover {
@@ -24,16 +24,11 @@
 .podcast-card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0 0 0.3rem 0;
+  color: var(--text);
 }
 
-.podcast-card-genre {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  margin-bottom: 0.5rem;
-}
-
+.podcast-card-genre,
 .podcast-card-updated {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--text-light);
 }

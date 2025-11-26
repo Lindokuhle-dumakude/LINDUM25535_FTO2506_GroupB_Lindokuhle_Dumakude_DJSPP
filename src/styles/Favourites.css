@@ -1,7 +1,6 @@
-/* src/styles/Favourites.css */
-
 .favourites-page {
   padding: 2rem;
+  color: var(--text);
 }
 
 .favourites-page h2 {
@@ -19,50 +18,9 @@
   gap: 1rem;
   padding: 1rem;
   border-radius: 10px;
-  border: 1px solid #ddd;
-  background: #fafafa;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   align-items: flex-start;
-}
-
-.fav-info h3 {
-  margin: 0;
-}
-
-.meta {
-  font-size: 0.9rem;
-  color: #555;
-  margin: 4px 0;
-}
-
-.description {
-  font-size: 0.95rem;
-}
-
-.remove-btn {
-  background: #ff5c5c;
-  border: none;
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-}
-
-.remove-btn:hover {
-  background: #e04b4b;
-}
-
-.favourites-empty {
-  padding: 2rem;
-  text-align: center;
-}
-
-.browse-btn {
-  margin-top: 1rem;
-  display: inline-block;
-  padding: 0.7rem 1.2rem;
-  background: #333;
-  color: white;
-  border-radius: 8px;
 }
 
 .favourite-image {
@@ -73,31 +31,46 @@
   margin-right: 1rem;
 }
 
-.fav-info {
-  flex: 1;
+.fav-info h3 {
+  margin: 0;
+  color: var(--text);
 }
 
-.fav-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
+.meta {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 4px 0;
 }
 
-.sort-select {
-  padding: 0.5rem 0.8rem;
-  font-size: 1rem;
+.description {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.remove-btn {
+  background: #ff5858;
+  border: none;
+  padding: 0.4rem 0.7rem;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background: white;
+  color: white;
   cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: #e04747;
+}
+
+.favourites-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text);
 }
 
 .group-block {
   margin-bottom: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #ffffff;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
 }
 
 .group-header {
@@ -105,7 +78,7 @@
   padding: 1rem;
   font-size: 1.1rem;
   font-weight: bold;
-  background: #f1f1f1;
+  background: var(--card-bg-alt);
   border: none;
   display: flex;
   justify-content: space-between;
@@ -115,44 +88,20 @@
 }
 
 .group-header:hover {
-  background: #e7e7e7;
+  background: var(--card-bg-alt);
 }
 
 .group-content {
   padding: 1rem;
-  background: #fafafa;
+  background: var(--card-bg-alt);
   border-radius: 0 0 8px 8px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.favourite-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
-}
-
-.fav-info {
-  flex: 1;
-}
-
 .favourite-actions {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
-
-.play-btn.playing {
-  color: var(--primary-color);
-}
-
-.remove-btn {
-  background: #ffdddd;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
 }
