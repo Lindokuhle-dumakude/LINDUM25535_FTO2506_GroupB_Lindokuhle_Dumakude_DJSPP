@@ -61,6 +61,29 @@ export function AudioPlayerProvider({ children }) {
     setProgress(seconds);
   };
 
+  /** Update progress as audio plays */
+  const handleTimeUpdate = () => {
+    setProgress(audioRef.current.currentTime);
+  };
+
+  /** Set duration when metadata is loaded */
+  const handleLoadedMetadata = () => {
+    setDuration(audioRef.current.duration);
+  };
+
+  /** Warn user before leaving the page if audio is playing */
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (isPlaying) {
+        e.preventDefault();
+        e.returnValue = ""; // Required for Chrome
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isPlaying]);
+
   // All values and functions we want to share with other components
   const value = {
     audioRef,
@@ -73,6 +96,8 @@ export function AudioPlayerProvider({ children }) {
     seekTo,
     setProgress,
     setDuration,
+    handleTimeUpdate,
+    handleLoadedMetadata,
   };
 
   return (
