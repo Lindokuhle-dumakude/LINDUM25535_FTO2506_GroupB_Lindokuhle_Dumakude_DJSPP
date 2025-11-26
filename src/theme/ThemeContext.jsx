@@ -23,8 +23,7 @@ export function ThemeProvider({ children }) {
   // Update localStorage and apply theme class to body whenever theme changes
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    document.body.className = ""; // Clear any previous class
-    document.body.classList.add(theme); // Add current theme class
+    document.body.dataset.theme = theme;
   }, [theme]);
 
   /**
