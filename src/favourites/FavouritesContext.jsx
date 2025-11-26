@@ -35,7 +35,7 @@ export function FavouritesProvider({ children }) {
    * @param {string} showTitle - The title of the show
    * @param {number} seasonNumber - The season number
    */
-  function addFavourite(episode, showTitle, seasonNumber) {
+  function addFavourite(episode, showTitle, seasonNumber, showId) {
     const fav = {
       id: episode.id,
       title: episode.title,
@@ -43,8 +43,9 @@ export function FavouritesProvider({ children }) {
       showId,
       showTitle,
       season: seasonNumber,
-      addedAt: new Date().toISOString(), // record when it was added
       description: episode.description,
+      image: episode.image,
+      addedAt: new Date().toISOString(),
     };
 
     setFavourites((prev) => [...prev, fav]);
@@ -67,19 +68,21 @@ export function FavouritesProvider({ children }) {
    * @param {string} showTitle - Show title
    * @param {number} seasonNumber - Season number
    */
-  function toggleFavourite(episode, showId, showTitle, seasonNumber) {
+  function toggleFavourite(episode, showTitle, seasonNumber, showId) {
     const exists = favourites.some((ep) => ep.id === episode.id);
 
     if (exists) {
       removeFavourite(episode.id);
     } else {
-      addFavourite(episode, showId, showTitle, seasonNumber);
+      addFavourite(episode, showTitle, seasonNumber, showId);
     }
   }
 
   // Provide favourites state and toggle function to children
   return (
-    <FavouritesContext.Provider value={{ favourites, toggleFavourite }}>
+    <FavouritesContext.Provider
+      value={{ favourites, toggleFavourite, removeFavourite }}
+    >
       {children}
     </FavouritesContext.Provider>
   );
