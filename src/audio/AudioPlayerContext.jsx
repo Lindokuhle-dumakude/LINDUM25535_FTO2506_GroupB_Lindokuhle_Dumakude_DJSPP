@@ -1,5 +1,5 @@
 // src/audio/AudioPlayerContext.jsx
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState, useEffect } from "react";
 
 /**
  * Creates a context for the audio player so components can share audio state and controls.
