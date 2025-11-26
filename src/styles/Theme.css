@@ -1,0 +1,24 @@
+/* Light theme */
+body.light {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --primary-color: #1e90ff;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Dark theme */
+body.dark {
+  --bg-color: #111111;
+  --text-color: #ffffff;
+  --primary-color: #1e90ff;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Example for buttons */
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
