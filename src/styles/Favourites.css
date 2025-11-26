@@ -1,0 +1,158 @@
+/* src/styles/Favourites.css */
+
+.favourites-page {
+  padding: 2rem;
+}
+
+.favourites-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+.favourites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.favourite-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  align-items: flex-start;
+}
+
+.fav-info h3 {
+  margin: 0;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.description {
+  font-size: 0.95rem;
+}
+
+.remove-btn {
+  background: #ff5c5c;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: #e04b4b;
+}
+
+.favourites-empty {
+  padding: 2rem;
+  text-align: center;
+}
+
+.browse-btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background: #333;
+  color: white;
+  border-radius: 8px;
+}
+
+.favourite-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.fav-info {
+  flex: 1;
+}
+
+.fav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sort-select {
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.group-block {
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #ffffff;
+}
+
+.group-header {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: #f1f1f1;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+}
+
+.group-header:hover {
+  background: #e7e7e7;
+}
+
+.group-content {
+  padding: 1rem;
+  background: #fafafa;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.favourite-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.fav-info {
+  flex: 1;
+}
+
+.favourite-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.play-btn.playing {
+  color: var(--primary-color);
+}
+
+.remove-btn {
+  background: #ffdddd;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
