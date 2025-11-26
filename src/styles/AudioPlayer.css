@@ -3,33 +3,58 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background: var(--bg-color);
-  color: var(--text-color);
-  border-top: 1px solid #ccc;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  z-index: 1000;
-}
 
-.player-info {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
 
-.controls {
+  padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+
+  z-index: 2000;
 }
 
-.controls input[type="range"] {
-  flex-grow: 1;
+.audio-info {
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
 }
 
-.time {
-  font-size: 12px;
-  min-width: 60px;
-  text-align: right;
+.audio-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.audio-meta {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.audio-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.audio-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.audio-btn:hover {
+  transform: scale(1.1);
+}
+
+.audio-progress {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.audio-progress input[type="range"] {
+  width: 100%;
 }
