@@ -9,6 +9,8 @@ import Pagination from "../components/Pagination";
 import PodcastGrid from "../components/PodcastGrid";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
+import ThemeToggle from "../theme/ThemeToggle";
+import Carousel from "../components/Carousel";
 
 import "../App.css";
 
@@ -17,6 +19,7 @@ import "../App.css";
  *
  * Handles loading, error states, and renders:
  * - Header
+ * - Recommended Shows Carousel
  * - Search, Genre, and Sort controls
  * - PodcastGrid for visible podcasts
  * - Pagination for navigating pages
@@ -41,14 +44,24 @@ export default function Home() {
     <div className="app-container">
       <Header />
 
+      {/* Recommended Shows Carousel */}
+      <section className="carousel-section">
+        <h2 className="section-title">Recommended Shows</h2>
+        <Carousel shows={visiblePodcasts} />
+      </section>
+
+      {/* Controls: Search, Filter, Sort, Theme Toggle */}
       <div className="controls">
         <SearchBar />
         <GenreFilter />
         <SortSelect />
+        <ThemeToggle />
       </div>
 
+      {/* Main Podcast Grid */}
       <PodcastGrid podcasts={visiblePodcasts} />
 
+      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
