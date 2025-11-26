@@ -45,4 +45,18 @@ export default function Favourites() {
   });
 
   const showTitles = Object.keys(groups).sort();
+
+  if (favourites.length === 0) {
+    return (
+      <div className="favourites-empty">
+        <h2>No favourites yet ❤️</h2>
+        <p>
+          Browse any show and tap the heart to save your favourite episodes.
+        </p>
+        <Link to="/" className="browse-btn">
+          Browse Shows →
+        </Link>
+      </div>
+    );
+  }
 }
