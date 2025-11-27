@@ -17,6 +17,7 @@
   box-sizing: border-box;
 
   box-shadow: var(--shadow);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .podcastLogoAndTitle {
