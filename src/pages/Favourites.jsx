@@ -4,6 +4,7 @@ import { useAudioPlayer } from "../audio/AudioPlayerContext";
 import { Link } from "react-router-dom";
 import "../styles/Favourites.css";
 import { useState } from "react";
+import Header from "../components/Header";
 
 export default function Favourites() {
   const { favourites, removeFavourite } = useFavourites();
@@ -65,88 +66,91 @@ export default function Favourites() {
   };
 
   return (
-    <div className="favourites-page">
-      <div className="fav-header">
-        <h2>Your Favourites</h2>
-        <select
-          className="sort-select"
-          value={sortType}
-          onChange={(e) => setSortType(e.target.value)}
-        >
-          <option value="newest">Newest → Oldest</option>
-          <option value="oldest">Oldest → Newest</option>
-          <option value="az">A–Z (Title)</option>
-          <option value="za">Z–A (Title)</option>
-        </select>
-      </div>
-
-      {showTitles.map((show) => (
-        <div key={show} className="group-block">
-          <button className="group-header" onClick={() => toggleGroup(show)}>
-            <span>{show}</span>
-            <span>{openGroups[show] ? "▲" : "▼"}</span>
-          </button>
-
-          {openGroups[show] && (
-            <div className="group-content">
-              {groups[show].map((ep) => {
-                const isCurrentlyPlaying =
-                  currentEpisode?.id === ep.id && isPlaying;
-
-                return (
-                  <div key={ep.id} className="favourite-card">
-                    <img
-                      src={ep.image}
-                      alt={ep.title}
-                      className="favourite-image"
-                    />
-
-                    <div className="fav-info">
-                      <h3>{ep.title}</h3>
-                      <p className="meta">
-                        Season {ep.season}, Episode {ep.episode} • Added:{" "}
-                        {new Date(ep.addedAt).toLocaleString()}
-                      </p>
-
-                      {ep.description && (
-                        <p className="description">
-                          {ep.description.length > 140
-                            ? ep.description.slice(0, 140) + "..."
-                            : ep.description}
-                        </p>
-                      )}
-
-                      <Link className="show-link" to={`/show/${ep.showId}`}>
-                        View Show →
-                      </Link>
-                    </div>
-
-                    <div className="favourite-actions">
-                      <button
-                        className={`play-btn ${
-                          isCurrentlyPlaying ? "playing" : ""
-                        }`}
-                        onClick={() =>
-                          isCurrentlyPlaying ? pause() : playEpisode(ep)
-                        }
-                      >
-                        {isCurrentlyPlaying ? "⏸️" : "▶️"}
-                      </button>
-
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeFavourite(ep.id)}
-                      >
-                        Remove ❌
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+    <>
+      <Header />
+      <div className="favourites-page">
+        <div className="fav-header">
+          <h2>Your Favourites</h2>
+          <select
+            className="sort-select"
+            value={sortType}
+            onChange={(e) => setSortType(e.target.value)}
+          >
+            <option value="newest">Newest → Oldest</option>
+            <option value="oldest">Oldest → Newest</option>
+            <option value="az">A–Z (Title)</option>
+            <option value="za">Z–A (Title)</option>
+          </select>
         </div>
-      ))}
-    </div>
+
+        {showTitles.map((show) => (
+          <div key={show} className="group-block">
+            <button className="group-header" onClick={() => toggleGroup(show)}>
+              <span>{show}</span>
+              <span>{openGroups[show] ? "▲" : "▼"}</span>
+            </button>
+
+            {openGroups[show] && (
+              <div className="group-content">
+                {groups[show].map((ep) => {
+                  const isCurrentlyPlaying =
+                    currentEpisode?.id === ep.id && isPlaying;
+
+                  return (
+                    <div key={ep.id} className="favourite-card">
+                      <img
+                        src={ep.image}
+                        alt={ep.title}
+                        className="favourite-image"
+                      />
+
+                      <div className="fav-info">
+                        <h3>{ep.title}</h3>
+                        <p className="meta">
+                          Season {ep.season}, Episode {ep.episode} • Added:{" "}
+                          {new Date(ep.addedAt).toLocaleString()}
+                        </p>
+
+                        {ep.description && (
+                          <p className="description">
+                            {ep.description.length > 140
+                              ? ep.description.slice(0, 140) + "..."
+                              : ep.description}
+                          </p>
+                        )}
+
+                        <Link className="show-link" to={`/show/${ep.showId}`}>
+                          View Show →
+                        </Link>
+                      </div>
+
+                      <div className="favourite-actions">
+                        <button
+                          className={`play-btn ${
+                            isCurrentlyPlaying ? "playing" : ""
+                          }`}
+                          onClick={() =>
+                            isCurrentlyPlaying ? pause() : playEpisode(ep)
+                          }
+                        >
+                          {isCurrentlyPlaying ? "⏸️" : "▶️"}
+                        </button>
+
+                        <button
+                          className="remove-btn"
+                          onClick={() => removeFavourite(ep.id)}
+                        >
+                          Remove ❌
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
