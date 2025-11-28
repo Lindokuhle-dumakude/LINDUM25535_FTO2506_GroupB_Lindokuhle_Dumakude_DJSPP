@@ -34,7 +34,6 @@ export default function AudioPlayer() {
       {/* HTML5 audio element */}
       <audio
         ref={audioRef}
-        src={currentEpisode.audioUrl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />
