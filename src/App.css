@@ -1,26 +1,38 @@
+/* WRAPPER for the entire app */
 .app-container {
+  width: 100%;
   max-width: 1200px;
+
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
+
+  transition: padding 0.3s ease;
 }
 
+/* Sorting + Filters + Search controls */
 .controls {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+
+  width: 100%;
   margin-bottom: 1.5rem;
   align-items: center;
-  width: 100%;
 }
 
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .app-container {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .app-container {
-    padding: 0.75rem;
+    padding: 1rem 0.75rem;
+  }
+
+  .controls {
+    gap: 0.6rem;
   }
 }
