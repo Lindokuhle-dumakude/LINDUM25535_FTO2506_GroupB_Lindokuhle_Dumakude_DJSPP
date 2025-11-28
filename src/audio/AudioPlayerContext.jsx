@@ -34,13 +34,20 @@ export function AudioPlayerProvider({ children }) {
    * @param {Object} episode - The episode object to play.
    */
   const playEpisode = (episode) => {
+    if (!episode.file) {
+      alert("Audio not available for this episode.");
+      return;
+    }
+
     setCurrentEpisode(episode);
 
-    // Wait for the audio element to load the new source, then play
-    setTimeout(() => {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }, 0);
+    if (audioRef.current) {
+      audioRef.current.src = episode.file; // assign the actual audio file
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.error("Playback failed:", err));
+    }
   };
 
   /**
