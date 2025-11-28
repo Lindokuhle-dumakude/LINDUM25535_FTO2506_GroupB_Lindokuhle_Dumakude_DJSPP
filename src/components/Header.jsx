@@ -39,7 +39,7 @@ export default function Header({ onSearch }) {
       <div className="headerRight">
         <nav>
           <Link to="/">Home</Link>
-          <Link to="/favourites">Favourites ❤️</Link>
+          <Link to="/favourites"> ❤️</Link>
         </nav>
 
         <ThemeToggle />
