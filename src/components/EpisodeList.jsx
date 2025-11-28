@@ -1,21 +1,14 @@
-// src/components/EpisodeList.jsx
 import "../styles/EpisodeList.css";
 import { useFavourites } from "../favourites/FavouritesContext";
 import { useAudioPlayer } from "../audio/AudioPlayerContext";
 
 /**
- * EpisodeList component displays all episodes of a season with titles, descriptions,
- * favourite button, and play button for each episode.
- *
- * @param {Object} props - Component props
- * @param {Array} props.episodes - List of episode objects to display
- * @param {string} props.seasonImage - Thumbnail image for the season
- * @param {string} props.showId - Show ID
- * @param {string} props.showTitle - Show title
- * @param {number} props.seasonNumber - Season number
- */
+
+* EpisodeList component displays all episodes of a season with titles, descriptions,
+* favourite button, and play button for each episode.
+  */
 export default function EpisodeList({
-  episodes,
+  episodes = [],
   seasonImage,
   showId,
   showTitle,
@@ -26,12 +19,21 @@ export default function EpisodeList({
 
   return (
     <div className="episode-list">
-      {episodes.map((ep) => {
-        const isFavourited = favourites.some((f) => f.id === ep.id);
+      {episodes.map((ep, index) => {
+        // Fallback for missing episode number
+        const episodeNumber = ep.episode ?? index + 1;
+
+        // Unique ID for favourites and key
+        const episodeUid = `${showId}-${seasonNumber}-${episodeNumber}`;
+
+        // Check if this episode is already favourited
+        const isFavourited = favourites.some((f) => f.id === episodeUid);
+
+        // Check if this episode is currently playing
         const isCurrentlyPlaying = currentEpisode?.id === ep.id && isPlaying;
 
         return (
-          <div key={ep.id} className="episode-card">
+          <div key={episodeUid} className="episode-card">
             {/* Episode thumbnail */}
             <img
               src={seasonImage}
@@ -42,13 +44,13 @@ export default function EpisodeList({
             {/* Episode title and description */}
             <div className="episode-content">
               <h4 className="episode-title">
-                Episode {ep.episode}: {ep.title}
+                Episode {episodeNumber}: {ep.title ?? "Untitled"}
               </h4>
 
               <p className="episode-description">
                 {ep.description?.length > 150
                   ? ep.description.slice(0, 150) + "..."
-                  : ep.description}
+                  : ep.description ?? "No description available."}
               </p>
             </div>
 
@@ -57,7 +59,16 @@ export default function EpisodeList({
               {/* Play / Pause button */}
               <button
                 className={`play-btn ${isCurrentlyPlaying ? "playing" : ""}`}
-                onClick={() => (isCurrentlyPlaying ? pause() : playEpisode(ep))}
+                onClick={() =>
+                  isCurrentlyPlaying
+                    ? pause()
+                    : playEpisode({
+                        ...ep,
+                        cover: seasonImage,
+                        showTitle,
+                        id: episodeUid,
+                      })
+                }
               >
                 {isCurrentlyPlaying ? "⏸️" : "▶️"}
               </button>
@@ -66,7 +77,12 @@ export default function EpisodeList({
               <button
                 className="fav-btn"
                 onClick={() =>
-                  toggleFavourite(ep, showTitle, seasonNumber, showId)
+                  toggleFavourite(
+                    { ...ep, id: episodeUid }, // pass consistent ID
+                    showTitle,
+                    seasonNumber,
+                    showId
+                  )
                 }
               >
                 {isFavourited ? "❤️" : "🤍"}
