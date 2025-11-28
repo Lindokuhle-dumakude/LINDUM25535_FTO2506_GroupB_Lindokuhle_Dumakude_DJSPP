@@ -1,0 +1,44 @@
+/* Spacing wrapper just for the home page */
+.home {
+  padding-top: 2rem;
+}
+
+/* Carousel block */
+.carousel-section {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Section title styling */
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+/* Spacing for filter/sort controls */
+.home-controls {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 768px) {
+  .carousel-section {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-section {
+    margin-bottom: 1.6rem;
+  }
+}
