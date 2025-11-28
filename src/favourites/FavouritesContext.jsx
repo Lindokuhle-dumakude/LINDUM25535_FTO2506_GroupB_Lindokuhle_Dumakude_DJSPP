@@ -37,7 +37,7 @@ export function FavouritesProvider({ children }) {
    */
   function addFavourite(episode, showTitle, seasonNumber, showId) {
     const fav = {
-      id: episode._uid,
+      id: episode.id,
       title: episode.title,
       episode: episode.episode,
       showId,
