@@ -7,7 +7,6 @@ import "../styles/SeasonList.css";
  */
 export default function SeasonList({ seasons, show }) {
   const [selectedSeason, setSelectedSeason] = useState(0);
-
   const season = seasons[selectedSeason];
 
   return (
