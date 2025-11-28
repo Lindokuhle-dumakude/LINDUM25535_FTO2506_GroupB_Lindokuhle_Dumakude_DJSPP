@@ -3,10 +3,9 @@ import { useFavourites } from "../favourites/FavouritesContext";
 import { useAudioPlayer } from "../audio/AudioPlayerContext";
 
 /**
-
-* EpisodeList component displays all episodes of a season with titles, descriptions,
-* favourite button, and play button for each episode.
-  */
+ * EpisodeList component displays all episodes of a season with titles, descriptions,
+ * favourite button, progress bars, finished badges, and play button for each episode.
+ */
 export default function EpisodeList({
   episodes = [],
   seasonImage,
@@ -15,36 +14,34 @@ export default function EpisodeList({
   seasonNumber,
 }) {
   const { favourites, toggleFavourite } = useFavourites();
-  const { currentEpisode, isPlaying, playEpisode, pause } = useAudioPlayer();
+  const { currentEpisode, isPlaying, playEpisode, pause, listeningProgress } =
+    useAudioPlayer();
 
   return (
     <div className="episode-list">
       {episodes.map((ep, index) => {
-        // Fallback for missing episode number
         const episodeNumber = ep.episode ?? index + 1;
-
-        // Unique ID for favourites and key
         const episodeUid = `${showId}-${seasonNumber}-${episodeNumber}`;
-
-        // Check if this episode is already favourited
         const isFavourited = favourites.some((f) => f.id === episodeUid);
-
-        // Check if this episode is currently playing
-        const isCurrentlyPlaying = currentEpisode?.id === ep.id && isPlaying;
+        const isCurrentlyPlaying =
+          currentEpisode?.id === episodeUid && isPlaying;
+        const epProgress = listeningProgress[episodeUid]?.timestamp || 0;
+        const epFinished = listeningProgress[episodeUid]?.finished;
 
         return (
           <div key={episodeUid} className="episode-card">
-            {/* Episode thumbnail */}
             <img
               src={seasonImage}
               alt={`Season thumbnail`}
               className="episode-image"
             />
 
-            {/* Episode title and description */}
             <div className="episode-content">
               <h4 className="episode-title">
                 Episode {episodeNumber}: {ep.title ?? "Untitled"}
+                {epFinished && (
+                  <span className="finished-badge">✔️ Finished</span>
+                )}
               </h4>
 
               <p className="episode-description">
@@ -52,11 +49,20 @@ export default function EpisodeList({
                   ? ep.description.slice(0, 150) + "..."
                   : ep.description ?? "No description available."}
               </p>
+
+              {!epFinished && (
+                <div className="progress-container">
+                  <div
+                    className="progress-bar"
+                    style={{
+                      width: `${(epProgress / (ep.duration || 1)) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+              )}
             </div>
 
-            {/* Controls */}
             <div className="episode-actions">
-              {/* Play / Pause button */}
               <button
                 className={`play-btn ${isCurrentlyPlaying ? "playing" : ""}`}
                 onClick={() =>
@@ -73,12 +79,11 @@ export default function EpisodeList({
                 {isCurrentlyPlaying ? "⏸️" : "▶️"}
               </button>
 
-              {/* Favourite button */}
               <button
                 className="fav-btn"
                 onClick={() =>
                   toggleFavourite(
-                    { ...ep, id: episodeUid }, // pass consistent ID
+                    { ...ep, id: episodeUid },
                     showTitle,
                     seasonNumber,
                     showId
