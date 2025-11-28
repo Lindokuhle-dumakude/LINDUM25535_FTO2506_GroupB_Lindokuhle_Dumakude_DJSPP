@@ -2,17 +2,16 @@
 import { usePodcasts } from "../context/PodcastContext";
 
 import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
 import GenreFilter from "../components/GenreFilter";
 import SortSelect from "../components/SortSelect";
 import Pagination from "../components/Pagination";
 import PodcastGrid from "../components/PodcastGrid";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
-import ThemeToggle from "../theme/ThemeToggle";
 import Carousel from "../components/Carousel";
 
 import "../App.css";
+import "./Home.css";
 
 /**
  * Home page component displaying the main podcasts shows.
@@ -50,12 +49,10 @@ export default function Home() {
         <Carousel shows={visiblePodcasts} />
       </section>
 
-      {/* Controls: Search, Filter, Sort, Theme Toggle */}
+      {/* Controls: Filter, Sort */}
       <div className="controls">
-        <SearchBar />
         <GenreFilter />
         <SortSelect />
-        <ThemeToggle />
       </div>
 
       {/* Main Podcast Grid */}
