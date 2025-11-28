@@ -20,6 +20,7 @@ body[data-theme="light"] {
   --card-bg-alt: #fafafa;
   --border: #ddd;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --border-color: #e4ebfa;
 }
 
 /* Dark mode */
