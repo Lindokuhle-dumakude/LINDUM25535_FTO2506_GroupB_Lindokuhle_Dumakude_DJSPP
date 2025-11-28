@@ -1,5 +1,5 @@
-// src/audio/AudioPlayerContext.jsx
 import { createContext, useContext, useRef, useState, useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 /**
  * Creates a context for the audio player so components can share audio state and controls.
@@ -13,26 +13,18 @@ const AudioPlayerContext = createContext();
  * @param {React.ReactNode} props.children - The child components that can access the audio player.
  */
 export function AudioPlayerProvider({ children }) {
-  /** Reference to the HTML audio element. Used to control playback. */
   const audioRef = useRef(null);
-
-  /** The currently playing episode object. */
   const [currentEpisode, setCurrentEpisode] = useState(null);
-
-  /** Whether audio is currently playing. */
   const [isPlaying, setIsPlaying] = useState(false);
-
-  /** Current playback time (in seconds). */
   const [progress, setProgress] = useState(0);
-
-  /** Total duration of the current audio (in seconds). */
   const [duration, setDuration] = useState(0);
 
-  /**
-   * Plays a given episode.
-   *
-   * @param {Object} episode - The episode object to play.
-   */
+  // Persisted listening progress across sessions
+  const [listeningProgress, setListeningProgress] = useLocalStorage(
+    "listeningProgress",
+    {}
+  );
+
   const playEpisode = (episode) => {
     if (!episode.file) {
       alert("Audio not available for this episode.");
@@ -42,7 +34,12 @@ export function AudioPlayerProvider({ children }) {
     setCurrentEpisode(episode);
 
     if (audioRef.current) {
-      audioRef.current.src = episode.file; // assign the actual audio file
+      audioRef.current.src = episode.file;
+
+      // Resume from saved timestamp if available
+      const savedTime = listeningProgress[episode.id]?.timestamp || 0;
+      audioRef.current.currentTime = savedTime;
+
       audioRef.current
         .play()
         .then(() => setIsPlaying(true))
@@ -50,40 +47,58 @@ export function AudioPlayerProvider({ children }) {
     }
   };
 
-  /**
-   * Pauses the current audio playback.
-   */
   const pause = () => {
     audioRef.current.pause();
     setIsPlaying(false);
   };
 
-  /**
-   * Seeks the audio to a specific time.
-   *
-   * @param {number} seconds - The time in seconds to jump to in the audio.
-   */
   const seekTo = (seconds) => {
     audioRef.current.currentTime = seconds;
     setProgress(seconds);
+
+    if (currentEpisode) {
+      setListeningProgress((prev) => ({
+        ...prev,
+        [currentEpisode.id]: {
+          ...prev[currentEpisode.id],
+          timestamp: seconds,
+          finished: seconds >= (duration || 0),
+        },
+      }));
+    }
   };
 
-  /** Update progress as audio plays */
   const handleTimeUpdate = () => {
     setProgress(audioRef.current.currentTime);
+
+    if (currentEpisode) {
+      const finished =
+        audioRef.current.currentTime >= (audioRef.current.duration || 0);
+
+      setListeningProgress((prev) => ({
+        ...prev,
+        [currentEpisode.id]: {
+          ...prev[currentEpisode.id],
+          timestamp: audioRef.current.currentTime,
+          finished,
+        },
+      }));
+    }
   };
 
-  /** Set duration when metadata is loaded */
   const handleLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
   };
 
-  /** Warn user before leaving the page if audio is playing */
+  // Reset all listening progress
+  const resetProgress = () => setListeningProgress({});
+
+  // Warn user before leaving the page if audio is playing
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       if (isPlaying) {
         e.preventDefault();
-        e.returnValue = ""; // Required for Chrome
+        e.returnValue = "";
       }
     };
 
@@ -91,7 +106,6 @@ export function AudioPlayerProvider({ children }) {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [isPlaying]);
 
-  // All values and functions we want to share with other components
   const value = {
     audioRef,
     currentEpisode,
@@ -101,10 +115,12 @@ export function AudioPlayerProvider({ children }) {
     playEpisode,
     pause,
     seekTo,
-    setProgress,
-    setDuration,
     handleTimeUpdate,
     handleLoadedMetadata,
+    listeningProgress,
+    resetProgress,
+    setProgress,
+    setDuration,
   };
 
   return (
