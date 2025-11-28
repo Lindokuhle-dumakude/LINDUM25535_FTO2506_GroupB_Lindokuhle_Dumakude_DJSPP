@@ -70,3 +70,24 @@
 .play-btn.playing {
   color: var(--primary-color);
 }
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: var(--card-bg-alt);
+  border-radius: 3px;
+  margin-top: 6px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.finished-badge {
+  margin-left: 8px;
+  font-size: 0.85rem;
+  color: green;
+  font-weight: bold;
+}
