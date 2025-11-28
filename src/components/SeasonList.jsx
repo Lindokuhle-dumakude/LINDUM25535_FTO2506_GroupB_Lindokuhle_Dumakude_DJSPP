@@ -21,7 +21,7 @@ export default function SeasonList({ seasons, show }) {
           onChange={(e) => setSelectedSeason(Number(e.target.value))}
         >
           {seasons.map((s, i) => (
-            <option key={s.id} value={i}>
+            <option key={i} value={i}>
               Season {s.season}
             </option>
           ))}
