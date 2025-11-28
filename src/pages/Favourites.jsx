@@ -8,7 +8,14 @@ import Header from "../components/Header";
 
 export default function Favourites() {
   const { favourites, removeFavourite } = useFavourites();
-  const { currentEpisode, isPlaying, playEpisode, pause } = useAudioPlayer();
+  const {
+    currentEpisode,
+    isPlaying,
+    playEpisode,
+    pause,
+    listeningProgress,
+    resetProgress,
+  } = useAudioPlayer();
 
   const [openGroups, setOpenGroups] = useState({});
   const [sortType, setSortType] = useState("newest");
@@ -71,16 +78,24 @@ export default function Favourites() {
       <div className="favourites-page">
         <div className="fav-header">
           <h2>Your Favourites</h2>
-          <select
-            className="sort-select"
-            value={sortType}
-            onChange={(e) => setSortType(e.target.value)}
-          >
-            <option value="newest">Newest → Oldest</option>
-            <option value="oldest">Oldest → Newest</option>
-            <option value="az">A–Z (Title)</option>
-            <option value="za">Z–A (Title)</option>
-          </select>
+
+          <div className="fav-controls">
+            <select
+              className="sort-select"
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+            >
+              <option value="newest">Newest → Oldest</option>
+              <option value="oldest">Oldest → Newest</option>
+              <option value="az">A–Z (Title)</option>
+              <option value="za">Z–A (Title)</option>
+            </select>
+
+            {/* Reset Listening History Button */}
+            <button className="reset-btn" onClick={resetProgress}>
+              Reset Listening History
+            </button>
+          </div>
         </div>
 
         {showTitles.map((show) => (
@@ -96,6 +111,9 @@ export default function Favourites() {
                   const isCurrentlyPlaying =
                     currentEpisode?.id === ep.id && isPlaying;
 
+                  const epProgress = listeningProgress[ep.id]?.timestamp || 0;
+                  const epFinished = listeningProgress[ep.id]?.finished;
+
                   return (
                     <div key={ep.id} className="favourite-card">
                       <img
@@ -105,7 +123,12 @@ export default function Favourites() {
                       />
 
                       <div className="fav-info">
-                        <h3>{ep.title}</h3>
+                        <h3>
+                          {ep.title}
+                          {epFinished && (
+                            <span className="finished-badge">✔️ Finished</span>
+                          )}
+                        </h3>
                         <p className="meta">
                           Season {ep.season}, Episode {ep.episode} • Added:{" "}
                           {new Date(ep.addedAt).toLocaleString()}
@@ -117,6 +140,20 @@ export default function Favourites() {
                               ? ep.description.slice(0, 140) + "..."
                               : ep.description}
                           </p>
+                        )}
+
+                        {/* Progress bar */}
+                        {!epFinished && (
+                          <div className="progress-container">
+                            <div
+                              className="progress-bar"
+                              style={{
+                                width: `${
+                                  (epProgress / (ep.duration || 1)) * 100
+                                }%`,
+                              }}
+                            ></div>
+                          </div>
                         )}
 
                         <Link className="show-link" to={`/show/${ep.showId}`}>
