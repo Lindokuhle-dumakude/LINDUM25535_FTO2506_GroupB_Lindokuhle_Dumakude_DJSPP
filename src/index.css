@@ -1,52 +1,93 @@
+/* Import fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Global text + background */
 html,
 body {
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
+
   background: var(--bg);
   color: var(--text);
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* GRID — Podcast list */
 .podcast-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
-  padding: 1rem;
+
+  padding: 1.5rem 0;
 }
 
+/* CARD — Podcast preview */
 .podcast-card {
   background: var(--card-bg);
-  box-shadow: var(--shadow);
   border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+
   cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease,
+    color 0.3s ease;
 }
 
+/* Hover interaction */
+.podcast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Card content */
 .podcast-info {
   padding: 1rem;
 }
 
+/* Title */
 .podcast-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+
   margin-bottom: 0.5rem;
   color: var(--text);
+
+  line-height: 1.3;
+  transition: color 0.3s ease;
 }
 
+/* Metadata lines */
 .podcast-seasons,
 .podcast-genres,
 .podcast-date {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-light);
+
+  margin-top: 0.25rem;
+  line-height: 1.3;
+  transition: color 0.3s ease;
 }
 
+/* Make entire card clickable without blue/underline */
 .podcast-card a {
   text-decoration: none;
   color: inherit;
+}
+
+/* RESPONSIVE spacing improvement */
+@media (max-width: 600px) {
+  .podcast-grid {
+    gap: 1rem;
+    padding: 1rem 0;
+  }
 }
