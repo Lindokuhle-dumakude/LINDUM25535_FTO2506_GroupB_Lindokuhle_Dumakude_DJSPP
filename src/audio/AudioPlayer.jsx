@@ -1,4 +1,3 @@
-// src/audio/AudioPlayer.jsx
 import React from "react";
 import { useAudioPlayer } from "./AudioPlayerContext";
 import "../styles/AudioPlayer.css";
@@ -19,15 +18,17 @@ export default function AudioPlayer() {
     seekTo,
     handleTimeUpdate,
     handleLoadedMetadata,
+    listeningProgress,
   } = useAudioPlayer();
 
-  // Hide player if no episode is selected
   if (!currentEpisode) return null;
 
-  // Handle user seeking through the audio
   const handleSeekChange = (e) => {
     seekTo(Number(e.target.value));
   };
+
+  const epProgress = listeningProgress[currentEpisode.id]?.timestamp || 0;
+  const epFinished = listeningProgress[currentEpisode.id]?.finished;
 
   return (
     <div className="audio-player">
@@ -44,8 +45,20 @@ export default function AudioPlayer() {
 
       {/* Episode info */}
       <div className="player-info">
-        <div className="audio-title">{currentEpisode.title}</div>
+        <div className="audio-title">
+          {currentEpisode.title}{" "}
+          {epFinished && <span className="finished-badge">✔️ Finished</span>}
+        </div>
         <div className="audio-meta">{currentEpisode.showTitle}</div>
+
+        {!epFinished && (
+          <div className="progress-container">
+            <div
+              className="progress-bar"
+              style={{ width: `${(epProgress / (duration || 1)) * 100}%` }}
+            ></div>
+          </div>
+        )}
       </div>
 
       {/* Controls */}
@@ -63,7 +76,7 @@ export default function AudioPlayer() {
           min="0"
           max={duration || 0}
           value={progress}
-          onChange={(e) => seekTo(Number(e.target.value))}
+          onChange={handleSeekChange}
         />
 
         <span className="audio-time">
