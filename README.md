@@ -1,59 +1,54 @@
-# 🎧 PodGenius — Podcast Discovery App
+# 📻 PodGenius
 
-PodGenius is a modern, responsive podcast browsing application built with **React**, allowing users to explore podcasts, view detailed show information, browse seasons, and read episode summaries.
-
-The app consumes the Podcast API hosted at  
-➡️ https://podcast-api.netlify.app
+A modern, responsive podcast browsing app built with **React**, featuring dynamic routing, global audio playback, favourites management.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-### ✅ Browse Podcasts
+### 🎧 Global Audio Player
 
-View a responsive grid of shows with images, titles, genres, and release information.
+- Persistent audio across pages
+- Play / Pause / Skip
+- Shows current episode info
+- Syncs when selecting episodes
 
-### ✅ Search & Filter
+### ❤️ Favourites System
 
-Search by title and filter by genre to quickly find content you’re interested in.
+- Mark/unmark episodes as favourites
+- Saved using Context API / localStorage
+- View all favourites in one place
+- Search & sort (if implemented)
 
-### ✅ Show Details
+### 🔍 Show, Season & Episode Views
 
-Click any podcast to view:
+- Dynamic show details
+- Season listing
+- Episode cards with description
+- Play + favourite buttons for each episode
 
-- Show banner
-- Title
-- Dynamic “Read more / Show less” description
-- Genre tags (mapped via genre ID)
-- Last updated date
-- Season summaries
+### 🧭 Dynamic Routing
 
-### ✅ Season & Episode Viewer
+- `/shows/:id`
+- `/shows/:id/seasons/:seasonNumber`
+- Handles loading & error states
 
-Each season includes:
+### 🧪 Clean Code Architecture
 
-- Season title
-- Season description
-- Episode count
-- Episodes with titles, short descriptions, and season images instead of episode thumbnails
-
-### ✅ Responsive UI
-
-Designed to work smoothly on:
-
-- Desktop
-- Tablets
-- Mobile
+- Component-based
+- Custom hooks (Audio, Favourites)
+- Reusable UI pieces
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **React** (Vite)
-- **React Router**
-- **Podcast API**
-- **CSS Modules / Responsive CSS**
-- **JavaScript (ES6+)**
+- ⚛️ React + Vite
+- 🎚️ Context API
+- ☁️ Vercel
+- 🔄 React Router
+- 🎨 CSS / Tailwind (if used)
+- 🗂️ Local Storage
 
 ---
 
@@ -62,8 +57,8 @@ Designed to work smoothly on:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/Lindokuhle-dumakude/LINDUM25535_FTO2506_GroupB_Lindokuhle_Dumakude_DJS05.git
-cd LINDUM25535_FTO2506_GroupB_Lindokuhle_Dumakude_DJS05
+git clone https://github.com/Lindokuhle-dumakude/LINDUM25535_FTO2506_GroupB_Lindokuhle_Dumakude_DJSPP.git
+cd LINDUM25535_FTO2506_GroupB_Lindokuhle_Dumakude_DJSPP
 ```
 
 2. **Install dependencies**
