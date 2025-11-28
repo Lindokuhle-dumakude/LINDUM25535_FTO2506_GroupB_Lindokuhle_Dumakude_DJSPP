@@ -65,3 +65,24 @@
   min-width: 65px;
   text-align: right;
 }
+
+.progress-container {
+  width: 100%;
+  height: 4px;
+  background: var(--card-bg-alt);
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+.finished-badge {
+  margin-left: 6px;
+  font-size: 0.8rem;
+  color: green;
+  font-weight: bold;
+}
