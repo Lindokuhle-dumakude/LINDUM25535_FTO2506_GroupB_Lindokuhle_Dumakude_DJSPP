@@ -31,36 +31,49 @@ export default function AudioPlayer() {
 
   return (
     <div className="audio-player">
-      {/* HTML5 audio element */}
       <audio
         ref={audioRef}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />
 
-      {/* Episode & show info */}
-      <div className="player-info">
-        <strong>{currentEpisode.title}</strong> - {currentEpisode.showTitle}
+      {/* Cover Art */}
+      <div className="player-cover">
+        <img src={currentEpisode.cover || "/default-cover.png"} alt="cover" />
       </div>
 
-      {/* Playback controls */}
-      <div className="controls">
-        <button onClick={isPlaying ? pause : () => playEpisode(currentEpisode)}>
+      {/* Episode info */}
+      <div className="player-info">
+        <div className="audio-title">{currentEpisode.title}</div>
+        <div className="audio-meta">{currentEpisode.showTitle}</div>
+      </div>
+
+      {/* Controls */}
+      <div className="audio-controls">
+        <button
+          className="audio-btn"
+          onClick={isPlaying ? pause : () => playEpisode(currentEpisode)}
+        >
           {isPlaying ? "⏸️" : "▶️"}
         </button>
+
         <input
+          className="audio-progress"
           type="range"
           min="0"
           max={duration || 0}
           value={progress}
-          onChange={handleSeekChange}
+          onChange={(e) => seekTo(Number(e.target.value))}
         />
-        <span className="time">
+
+        <span className="audio-time">
           {Math.floor(progress / 60)}:
           {("0" + Math.floor(progress % 60)).slice(-2)} /{" "}
           {Math.floor(duration / 60)}:
           {("0" + Math.floor(duration % 60)).slice(-2)}
         </span>
+
+        <button className="audio-btn">☰</button>
       </div>
     </div>
   );
